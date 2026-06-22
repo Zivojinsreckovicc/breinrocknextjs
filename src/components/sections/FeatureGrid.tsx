@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { PointerGlow } from "@/components/ui/PointerGlow";
 import { ArrowRightIcon } from "@/components/layout/icons";
 import { SectionHeading } from "./SectionHeading";
 
@@ -63,7 +62,6 @@ export function FeatureGrid({
               className="h-full"
             >
               <div className="group relative h-full overflow-hidden rounded-2xl border border-arctic-white/10 bg-white/[0.03] p-7 backdrop-blur-sm transition-colors duration-300 hover:border-action-blue/40 hover:bg-white/[0.05]">
-                <PointerGlow />
                 <span className="inline-flex size-12 items-center justify-center rounded-xl bg-action-blue/15 text-action-blue transition-transform duration-300 group-hover:scale-105">
                   {item.icon}
                 </span>

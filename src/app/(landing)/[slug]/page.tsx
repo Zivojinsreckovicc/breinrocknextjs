@@ -9,7 +9,6 @@ import type { FeatureGridItem } from "@/components/sections/FeatureGrid";
 import { Comparison } from "@/components/sections/Comparison";
 import { CardShowcase } from "@/components/sections/CardShowcase";
 import { BannerCta } from "@/components/sections/BannerCta";
-import { MobileApp } from "@/components/sections/MobileApp";
 import { Faq } from "@/components/sections/Faq";
 import {
   GlobeIcon,
@@ -122,8 +121,6 @@ export default async function LandingPage({ params }: PageProps) {
       <CardShowcase />
 
       <BannerCta primaryLabel="Sign up now" />
-
-      <MobileApp />
 
       <Faq items={landingFaqs} defaultOpenIndex={null} />
     </main>

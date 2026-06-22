@@ -26,6 +26,34 @@ export function MinusIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function CrossIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  );
+}
+
+/** Check mark enclosed in a circle — comparison "yes". */
+export function CircleCheckIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m8.5 12 2.5 2.5 4.5-4.5" />
+    </svg>
+  );
+}
+
+/** Cross enclosed in a circle — comparison "not offered". */
+export function CircleCrossIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m15 9-6 6M9 9l6 6" />
+    </svg>
+  );
+}
+
 /** Innovation */
 export function SparkIcon(props: SVGProps<SVGSVGElement>) {
   return (

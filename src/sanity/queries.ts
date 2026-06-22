@@ -72,3 +72,18 @@ export const policyParamsQuery = groq`
     "slug": slug.current
   }
 `;
+
+/* ------------------------------- Website policies ------------------------- */
+
+/** A single company-wide legal page by slug (e.g. cookie-policy). */
+export const websitePolicyQuery = groq`
+  *[_type == "websitePolicy" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    summary,
+    "effectiveDate": effectiveDate,
+    body,
+    seo
+  }
+`;

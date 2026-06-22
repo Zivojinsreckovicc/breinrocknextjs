@@ -31,18 +31,16 @@ function policyMoved(
   newSlug: string
 ): LegacyRedirect[] {
   const destination = `/policies/${newCountry}/${newSlug}`;
-  return [
-    {
-      source: `/policies/${legacyCountry}/${legacySlug}.html`,
-      destination,
-      permanent,
-    },
-    {
-      source: `/policies/${legacyCountry}/${legacySlug}`,
-      destination,
-      permanent,
-    },
+  const legacyPath = `/policies/${legacyCountry}/${legacySlug}`;
+  const rules: LegacyRedirect[] = [
+    { source: `${legacyPath}.html`, destination, permanent },
   ];
+  // Skip the no-extension rule when the slug is unchanged — it would redirect
+  // the page to itself (ERR_TOO_MANY_REDIRECTS).
+  if (legacyPath !== destination) {
+    rules.push({ source: legacyPath, destination, permanent });
+  }
+  return rules;
 }
 
 function policyHub(
@@ -96,10 +94,10 @@ const MOVED_ROOT_PAGES: ReadonlyArray<readonly [string, string]> = [
   ["foreign-exchange", "/products/foreign-exchange"],
   ["prepaid-cards", "/products/personal-cards"],
   ["thankyou", "/thank-you"],
-  ["legal", "/policies"],
-  ["cookiepolicy", "/policies"],
-  ["privacypolicy", "/policies"],
-  ["terms-of-use", "/policies"],
+  ["legal", "/legal"],
+  ["cookiepolicy", "/cookie-policy"],
+  ["privacypolicy", "/privacy-policy"],
+  ["terms-of-use", "/terms-of-use"],
   ["job-details", "/careers"],
 ];
 

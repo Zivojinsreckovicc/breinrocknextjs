@@ -1,4 +1,8 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import { SectionHeading } from "./SectionHeading";
+import { ArrowRightIcon } from "@/components/layout/icons";
 import { testimonials as defaultTestimonials } from "@/data/home";
 import type { Testimonial } from "@/data/home";
 
@@ -6,6 +10,9 @@ type TestimonialsProps = {
   heading?: string;
   items?: Testimonial[];
 };
+
+// Horizontal gap between cards (Tailwind gap-6 = 1.5rem).
+const CARD_GAP = 24;
 
 function TestimonialCard({ item, hidden }: { item: Testimonial; hidden?: boolean }) {
   return (
@@ -30,29 +37,106 @@ function TestimonialCard({ item, hidden }: { item: Testimonial; hidden?: boolean
 }
 
 /**
- * Auto-scrolling marquee of client testimonials. Pauses on hover and stops
- * under reduced-motion (the full set stays readable either way).
+ * Auto-scrolling carousel of client testimonials. Drifts continuously, pauses
+ * on hover, and exposes prev/next arrows so visitors can advance immediately
+ * instead of waiting for the loop. Inert under reduced-motion (arrows still
+ * work); the duplicated set keeps the loop seamless.
  */
 export function Testimonials({
   heading = "Trusted by Clients Worldwide",
   items = defaultTestimonials,
 }: TestimonialsProps) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  // Auto-scroll is suspended while either flag is set (hover / manual nudge).
+  const hoverRef = useRef(false);
+  const lockRef = useRef(false);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let raf = 0;
+    let last = performance.now();
+    const speed = 40; // px per second
+
+    const step = (now: number) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      if (!hoverRef.current && !lockRef.current) {
+        el.scrollLeft += speed * dt;
+        const half = el.scrollWidth / 2;
+        if (half > 0 && el.scrollLeft >= half) el.scrollLeft -= half;
+      }
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const nudge = (direction: 1 | -1) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    // Briefly suspend auto-scroll so it doesn't fight the smooth scroll.
+    lockRef.current = true;
+    window.setTimeout(() => {
+      lockRef.current = false;
+    }, 700);
+
+    const half = el.scrollWidth / 2;
+    const card = el.querySelector("figure");
+    const amount = (card instanceof HTMLElement ? card.offsetWidth : 360) + CARD_GAP;
+
+    // Jump by one copy of the list when near an edge to keep the loop seamless.
+    if (direction < 0 && el.scrollLeft - amount < 0) el.scrollLeft += half;
+    if (direction > 0 && el.scrollLeft + amount > half * 2) el.scrollLeft -= half;
+
+    el.scrollBy({ left: direction * amount, behavior: "smooth" });
+  };
+
   return (
     <section className="bg-midnight-frame py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading title={heading} />
       </div>
 
-      <div className="marquee-track marquee-mask group mt-14 overflow-hidden">
-        <div className="animate-marquee flex w-max gap-6 px-3" style={{ "--marquee-duration": "48s" } as React.CSSProperties}>
-          {[...items, ...items].map((item, index) => (
-            <TestimonialCard
-              key={`${item.name}-${index}`}
-              item={item}
-              hidden={index >= items.length}
-            />
-          ))}
-        </div>
+      <div
+        ref={scrollerRef}
+        onMouseEnter={() => {
+          hoverRef.current = true;
+        }}
+        onMouseLeave={() => {
+          hoverRef.current = false;
+        }}
+        className="marquee-mask mt-14 flex gap-6 overflow-x-auto px-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {[...items, ...items].map((item, index) => (
+          <TestimonialCard
+            key={`${item.name}-${index}`}
+            item={item}
+            hidden={index >= items.length}
+          />
+        ))}
+      </div>
+
+      <div className="mt-10 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          aria-label="Previous testimonials"
+          onClick={() => nudge(-1)}
+          className="flex size-11 items-center justify-center rounded-full border border-arctic-white/15 bg-white/[0.03] text-arctic-white transition-colors hover:border-action-blue/50 hover:bg-action-blue/15"
+        >
+          <ArrowRightIcon className="size-5 rotate-180" />
+        </button>
+        <button
+          type="button"
+          aria-label="Next testimonials"
+          onClick={() => nudge(1)}
+          className="flex size-11 items-center justify-center rounded-full border border-arctic-white/15 bg-white/[0.03] text-arctic-white transition-colors hover:border-action-blue/50 hover:bg-action-blue/15"
+        >
+          <ArrowRightIcon className="size-5" />
+        </button>
       </div>
     </section>
   );

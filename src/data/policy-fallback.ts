@@ -44,7 +44,6 @@ const POLICIES_BY_COUNTRY: Record<string, PolicyStub[]> = {
   cyprus: [],
   uae: [
     { slug: "payment-platform-terms", title: "Payment Platform Terms (DIFC)" },
-    { slug: "complaints", title: "UAE Complaints" },
     { slug: "client-money-disclosure", title: "Client Money Disclosure" },
   ],
   "czech-republic": [

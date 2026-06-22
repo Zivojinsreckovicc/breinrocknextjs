@@ -1,5 +1,4 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { PointerGlow } from "@/components/ui/PointerGlow";
 import { coreValues as defaultValues } from "@/data/home";
 import type { CoreValue } from "@/data/home";
 import { MedalIcon, ShieldCheckIcon, SparkIcon, UsersIcon } from "./icons";
@@ -40,7 +39,6 @@ export function CoreValues({ values = defaultValues }: CoreValuesProps) {
             return (
               <Reveal key={value.label} delay={index * 80} className="h-full">
                 <div className="group relative flex h-full flex-col items-center gap-4 rounded-2xl border border-arctic-white/10 bg-white/[0.03] p-8 text-center backdrop-blur-sm transition-colors duration-300 hover:border-action-blue/40 hover:bg-white/[0.05]">
-                  <PointerGlow />
                   <span className="relative z-10 inline-flex size-12 items-center justify-center rounded-xl bg-action-blue/15 text-action-blue ring-1 ring-action-blue/20 transition-transform duration-300 group-hover:scale-105">
                     <Icon className="size-6" />
                   </span>

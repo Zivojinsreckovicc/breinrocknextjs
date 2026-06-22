@@ -2,7 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { ArrowRightIcon } from "@/components/layout/icons";
 import { SectionHeading } from "./SectionHeading";
-import { CheckIcon, MinusIcon } from "./icons";
+import { CircleCheckIcon, CircleCrossIcon } from "./icons";
 import { comparisonRows as defaultRows } from "@/data/home";
 import type { CompareRow } from "@/data/home";
 import { SIGN_UP_URL } from "@/constants/links";
@@ -47,7 +47,7 @@ export function Comparison({ rows = defaultRows, showSignUpCta = false }: Compar
                   </th>
                   <th
                     scope="col"
-                    className="bg-action-blue/10 px-6 py-5 text-sm font-bold uppercase tracking-wide text-action-blue"
+                    className="bg-action-blue/10 px-6 py-5 font-eyebrow text-base font-normal tracking-tight text-arctic-white"
                   >
                     Breinrock
                   </th>
@@ -73,15 +73,20 @@ export function Comparison({ rows = defaultRows, showSignUpCta = false }: Compar
                     </th>
                     <td className="bg-action-blue/[0.07] px-6 py-5 align-top">
                       <span className="flex items-start gap-2.5 text-sm text-arctic-white">
-                        <CheckIcon className="mt-0.5 size-5 shrink-0 text-action-blue" />
+                        <CircleCheckIcon className="mt-0.5 size-5 shrink-0 text-success-green" />
                         {row.breinrock}
                       </span>
                     </td>
                     <td className="px-6 py-5 align-top">
-                      <span className="flex items-start gap-2.5 text-sm text-steel-neutral/50">
-                        <MinusIcon className="mt-0.5 size-5 shrink-0 text-steel-neutral/40" />
-                        {row.typical ?? "Not offered"}
-                      </span>
+                      {row.typical === null ? (
+                        <span className="flex justify-center text-danger-red">
+                          <CircleCrossIcon className="size-5 shrink-0" />
+                        </span>
+                      ) : (
+                        <span className="flex justify-center text-sm text-steel-neutral/50">
+                          {row.typical}
+                        </span>
+                      )}
                     </td>
                   </tr>
                 ))}

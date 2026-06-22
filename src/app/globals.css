@@ -31,6 +31,10 @@
   --color-gold: #d4af37;
   --color-gold-light: #f6e7b4;
 
+  /* Status accents — comparison checks (green) and crosses (red) */
+  --color-success-green: #4ade80;
+  --color-danger-red: #f1554f;
+
   /* Typography */
   --font-heading: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   --font-body: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
@@ -259,21 +263,6 @@ body {
   animation: blob-drift 14s ease-in-out infinite;
 }
 
-/* --- Pointer-follow glow — used by <PointerGlow> ------------------------ */
-.pointer-glow {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  background: radial-gradient(
-    var(--glow-size, 240px) circle at var(--spot-x, 50%) var(--spot-y, 50%),
-    color-mix(in srgb, var(--color-action-blue) 22%, transparent),
-    transparent 62%
-  );
-}
-
 /* --- Animated liquid brand gradient — home hero backdrop --------------- */
 /* Dark at the bottom-right, flowing toward brighter brand blues at the
    top-left. Several soft radial "blobs" drift across a diagonal base
@@ -283,7 +272,7 @@ body {
   background-image:
     radial-gradient(
       42% 52% at 22% 18%,
-      color-mix(in srgb, var(--color-action-blue) 60%, transparent),
+      color-mix(in srgb, var(--color-action-blue) 38%, transparent),
       transparent 70%
     ),
     radial-gradient(
@@ -301,7 +290,7 @@ body {
       var(--color-midnight-frame),
       color-mix(in srgb, var(--color-breinrock-blue) 55%, var(--color-midnight-frame))
         52%,
-      var(--color-action-blue)
+      color-mix(in srgb, var(--color-action-blue) 45%, var(--color-breinrock-blue))
     );
   background-size: 200% 200%, 190% 190%, 220% 220%, 200% 200%;
   background-repeat: no-repeat;

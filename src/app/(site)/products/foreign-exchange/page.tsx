@@ -2,7 +2,6 @@ import { buildMetadata } from "@/lib/seo";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { PointerGlow } from "@/components/ui/PointerGlow";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FeatureGrid } from "@/components/sections/FeatureGrid";
 import type { FeatureGridItem } from "@/components/sections/FeatureGrid";
@@ -64,7 +63,6 @@ export default function ForeignExchangePage() {
           className="absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-gradient-to-b from-transparent to-midnight-frame"
           aria-hidden="true"
         />
-        <PointerGlow mode="always" className="-z-10 [--glow-size:480px]" />
 
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-10 lg:px-8">
           <div className="animate-rise">

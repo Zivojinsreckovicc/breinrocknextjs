@@ -52,9 +52,8 @@ export const footerSocialLinks = [
 ] as const;
 
 export const footerNavLinks = [
-  { label: "About Us", href: "/about" },
-  { label: "Blog", href: "/blog" },
-  { label: "Legal", href: "/policies" },
-  { label: "Terms of Use", href: "/policies" },
-  { label: "Privacy Policy", href: "/policies" },
+  { label: "Cookie Policy", href: "/cookie-policy" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms of Use", href: "/terms-of-use" },
+  { label: "Legal", href: "/legal" },
 ];

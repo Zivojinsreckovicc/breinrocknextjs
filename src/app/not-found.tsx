@@ -22,10 +22,7 @@ export default function NotFound() {
         />
 
         <div className="mx-auto flex max-w-2xl flex-col items-center px-6 text-center lg:px-8">
-          <span className="font-eyebrow text-base italic tracking-wide text-action-blue">
-            Error 404
-          </span>
-          <h1 className="mt-3 text-6xl font-bold tracking-tight text-arctic-white sm:text-7xl">
+          <h1 className="text-6xl font-bold tracking-tight text-arctic-white sm:text-7xl">
             Page not found
           </h1>
           <p className="mt-5 max-w-md text-lg leading-relaxed text-steel-neutral/80">

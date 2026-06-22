@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FeatureGrid } from "@/components/sections/FeatureGrid";
 import type { FeatureGridItem } from "@/components/sections/FeatureGrid";
 import { CurrencyCoverage } from "@/components/sections/CurrencyCoverage";
+import { CurrencySearch } from "@/components/sections/CurrencySearch";
 import { BannerCta } from "@/components/sections/BannerCta";
 import { ArrowRightIcon } from "@/components/layout/icons";
 import {
@@ -82,6 +83,9 @@ export default function BpnInternationalPage() {
           </Link>
         </div>
       </PageHero>
+
+      {/* Region / currency search */}
+      <CurrencySearch />
 
       {/* Advantages */}
       <FeatureGrid

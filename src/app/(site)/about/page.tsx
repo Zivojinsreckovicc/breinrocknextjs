@@ -27,10 +27,7 @@ export default function AboutPage() {
       {/* Header */}
       <PageHero>
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
-        <span className="mt-8 block font-eyebrow text-base italic tracking-wide text-action-blue">
-          About us
-        </span>
-        <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight text-arctic-white sm:text-5xl lg:text-6xl">
+        <h1 className="mt-8 max-w-3xl text-4xl font-bold tracking-tight text-arctic-white sm:text-5xl lg:text-6xl">
           Banking built around people
         </h1>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-steel-neutral/80">

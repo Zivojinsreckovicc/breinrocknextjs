@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { Reveal } from "@/components/ui/Reveal";
-import { PointerGlow } from "@/components/ui/PointerGlow";
 import { ArrowRightIcon } from "@/components/layout/icons";
 import { products as defaultProducts } from "@/data/home";
 import type { Product, ProductFeature } from "@/data/home";
@@ -36,36 +35,9 @@ const networkTiles: NetworkTile[] = [
   { label: "Local AED", subtitle: "AED · UAE", icon: "flag", flag: "/imgs/licenses/sepa/uae.png" },
 ];
 
-// Eurozone flags shown as an overlapping cluster on the SEPA tile.
-const sepaFlags = [
-  "/imgs/licenses/sepa/germany.png",
-  "/imgs/licenses/sepa/france.png",
-  "/imgs/licenses/sepa/italy.png",
-];
-
-function SepaFlagCluster() {
-  return (
-    <span className="flex items-center" aria-hidden="true">
-      {sepaFlags.map((src, index) => (
-        <Image
-          key={src}
-          src={src}
-          alt=""
-          width={32}
-          height={32}
-          className={cn(
-            "size-8 rounded-full object-cover ring-2 ring-[#111a3c]",
-            index > 0 && "-ml-2.5"
-          )}
-        />
-      ))}
-    </span>
-  );
-}
-
 function NetworkTileIcon({ tile }: { tile: NetworkTile }) {
   if (tile.icon === "sepa") {
-    return <SepaFlagCluster />;
+    return <EuFlagIcon className="size-11 rounded-full ring-1 ring-white/10" />;
   }
 
   if (tile.icon === "swift") {
@@ -112,20 +84,16 @@ function NetworksVisual() {
   );
 }
 
-// Circular EU flag — a blue field with the ring of twelve gold stars.
-// Rendered inline because the asset folder has no European-Union flag.
+// Circular European-Union flag.
 function EuFlagIcon({ className }: { className?: string }) {
-  const stars = Array.from({ length: 12 }, (_, i) => {
-    const angle = (i / 12) * Math.PI * 2 - Math.PI / 2;
-    return { x: 12 + 6.4 * Math.cos(angle), y: 12 + 6.4 * Math.sin(angle) };
-  });
   return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
-      <circle cx="12" cy="12" r="12" fill="#0a3aa8" />
-      {stars.map((star, i) => (
-        <circle key={i} cx={star.x} cy={star.y} r="1.05" fill="#ffd64a" />
-      ))}
-    </svg>
+    <Image
+      src="/imgs/licenses/sepa/eu.png"
+      alt=""
+      width={44}
+      height={44}
+      className={cn("rounded-full object-cover", className)}
+    />
   );
 }
 
@@ -333,8 +301,6 @@ function ProductCard({ product }: { product: Product }) {
       href={product.href}
       className="group relative flex h-full flex-col overflow-hidden rounded-[20px] border border-white/[0.07] bg-[#0e1535] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-action-blue/40 hover:shadow-[0_20px_56px_rgba(62,116,214,0.13)]"
     >
-      <PointerGlow />
-
       {/* Upper graphic — fixed height + dotted panel so every card aligns. */}
       <div
         className={cn(

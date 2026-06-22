@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/ui/Reveal";
-import { PointerGlow } from "@/components/ui/PointerGlow";
 import { ArrowRightIcon } from "@/components/layout/icons";
 import { formatDate } from "@/lib/format";
 import { getPoliciesByCountry } from "@/sanity/fetch";
@@ -89,7 +88,6 @@ export default async function CountryPoliciesPage({ params }: PageProps) {
                     href={`/policies/${country.slug}/${policy.slug}`}
                     className="group relative flex items-center gap-4 overflow-hidden rounded-xl border border-arctic-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all duration-300 hover:border-action-blue/40 hover:bg-white/[0.05]"
                   >
-                    <PointerGlow />
                     <div className="flex-1">
                       <h2 className="text-lg font-bold text-arctic-white transition-colors group-hover:text-action-blue">
                         {policy.title}

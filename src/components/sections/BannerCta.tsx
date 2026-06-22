@@ -1,5 +1,4 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { PointerGlow } from "@/components/ui/PointerGlow";
 import { SIGN_UP_URL } from "@/constants/links";
 import { BannerCtaActions } from "./BannerCtaActions";
 
@@ -30,7 +29,6 @@ export function BannerCta({
     <section className="bg-midnight-frame px-6 pb-24 lg:px-8 lg:pb-32">
       <Reveal className="mx-auto max-w-7xl">
         <div className="relative isolate overflow-hidden rounded-3xl border border-arctic-white/10 bg-gradient-to-br from-breinrock-blue via-midnight-raised to-midnight-frame px-8 py-16 text-center sm:px-16 sm:py-20">
-          <PointerGlow mode="always" className="[--glow-size:520px]" />
           {/* Animated grid texture */}
           <div
             className="bg-grid animate-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]"

@@ -32,10 +32,7 @@ export default function ThankYouPage() {
             <CheckIcon className="size-10" />
           </span>
 
-          <span className="mt-8 block font-eyebrow text-base italic tracking-wide text-action-blue">
-            Message received
-          </span>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-arctic-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-8 text-4xl font-bold tracking-tight text-arctic-white sm:text-5xl lg:text-6xl">
             Thank you for reaching out
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-steel-neutral/80">

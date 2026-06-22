@@ -10,11 +10,13 @@ import {
   policiesByCountryQuery,
   policyQuery,
   policyParamsQuery,
+  websitePolicyQuery,
 } from "./queries";
 import { fallbackPosts } from "@/data/blog-fallback";
 import { fallbackPolicies } from "@/data/policy-fallback";
+import { fallbackWebsitePolicies } from "@/data/website-policy-fallback";
 import type { BlogPost, BlogPostCard } from "@/types/blog";
-import type { Policy, PolicyListItem } from "@/types/policy";
+import type { Policy, PolicyListItem, WebsitePolicy } from "@/types/policy";
 
 type ImageWithAlt = SanityImageSource & { alt?: string };
 
@@ -174,4 +176,21 @@ export async function getPolicyParams(): Promise<{ country: string; slug: string
     // ignore and fall back
   }
   return fallbackPolicies.map((policy) => ({ country: policy.country, slug: policy.slug }));
+}
+
+/* ------------------------------- Website policies ------------------------- */
+
+/** A single company-wide legal page by slug. Falls back to placeholder text. */
+export async function getWebsitePolicy(slug: string): Promise<WebsitePolicy | null> {
+  try {
+    const raw = await client.fetch<WebsitePolicy | null>(
+      websitePolicyQuery,
+      { slug },
+      FETCH_OPTIONS
+    );
+    if (raw) return raw;
+  } catch {
+    // ignore and fall back
+  }
+  return fallbackWebsitePolicies.find((policy) => policy.slug === slug) ?? null;
 }

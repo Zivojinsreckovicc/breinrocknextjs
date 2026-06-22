@@ -30,6 +30,9 @@ export function TeamCarousel({
   const trackRef = useRef<HTMLDivElement>(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  // Mouse drag-to-swipe state (touch/trackpad use native scrolling).
+  const dragRef = useRef({ active: false, startX: 0, startScroll: 0, moved: false });
 
   const onScroll = () => {
     const el = trackRef.current;
@@ -42,6 +45,38 @@ export function TeamCarousel({
     const el = trackRef.current;
     if (!el) return;
     el.scrollBy({ left: el.clientWidth * 0.8 * direction, behavior: "smooth" });
+  };
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return; // leave native touch/pen scrolling alone
+    const el = trackRef.current;
+    if (!el) return;
+    dragRef.current = { active: true, startX: e.clientX, startScroll: el.scrollLeft, moved: false };
+    setDragging(true);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = trackRef.current;
+    const drag = dragRef.current;
+    if (!el || !drag.active) return;
+    const dx = e.clientX - drag.startX;
+    if (Math.abs(dx) > 3) drag.moved = true;
+    el.scrollLeft = drag.startScroll - dx;
+  };
+
+  const endDrag = () => {
+    if (!dragRef.current.active) return;
+    dragRef.current.active = false;
+    setDragging(false);
+  };
+
+  // Swallow the click that follows a drag so cards don't trigger on release.
+  const onClickCapture = (e: React.MouseEvent) => {
+    if (dragRef.current.moved) {
+      e.preventDefault();
+      e.stopPropagation();
+      dragRef.current.moved = false;
+    }
   };
 
   return (
@@ -72,12 +107,21 @@ export function TeamCarousel({
           <div
             ref={trackRef}
             onScroll={onScroll}
-            className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerLeave={endDrag}
+            onClickCapture={onClickCapture}
+            onDragStart={(e) => e.preventDefault()}
+            className={cn(
+              "flex gap-5 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+              dragging ? "cursor-grabbing select-none [&_img]:pointer-events-none" : "cursor-grab"
+            )}
           >
             {members.map((member, index) => (
               <article
                 key={`${member.image}-${index}`}
-                className="group flex w-56 shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-action-blue/40 bg-[#080c1c] sm:w-64"
+                className="group flex w-56 shrink-0 flex-col overflow-hidden rounded-2xl border border-action-blue/40 bg-[#080c1c] sm:w-64"
               >
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
                   <Image

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { PointerGlow } from "@/components/ui/PointerGlow";
 import { ArrowRightIcon } from "@/components/layout/icons";
 import { policyCountries } from "@/data/policy-countries";
 
@@ -22,10 +21,7 @@ export default function PoliciesHubPage() {
           aria-hidden="true"
         />
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <span className="font-eyebrow text-base italic tracking-wide text-action-blue">
-            Legal
-          </span>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-arctic-white sm:text-5xl">
+          <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-arctic-white sm:text-5xl">
             Policies by jurisdiction
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-steel-neutral/80">
@@ -40,7 +36,6 @@ export default function PoliciesHubPage() {
                   href={`/policies/${country.slug}`}
                   className="group relative flex h-full items-center gap-4 overflow-hidden rounded-2xl border border-arctic-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-action-blue/40 hover:bg-white/[0.05]"
                 >
-                  <PointerGlow />
                   <Image
                     src={country.flag}
                     alt={country.name}

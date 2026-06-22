@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Tilt } from "@/components/ui/Tilt";
-import { PointerGlow } from "@/components/ui/PointerGlow";
 import { ArrowRightIcon } from "@/components/layout/icons";
 import { SIGN_UP_URL } from "@/constants/links";
 import { cardTiers } from "@/data/cards";
@@ -26,7 +25,6 @@ export function CardsHero() {
         className="bg-grid animate-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]"
         aria-hidden="true"
       />
-      <PointerGlow mode="always" className="-z-10 [--glow-size:460px]" />
 
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-8 lg:px-8">
         {/* Copy */}

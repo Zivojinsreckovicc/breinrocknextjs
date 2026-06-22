@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { PointerGlow } from "@/components/ui/PointerGlow";
 import { ArrowRightIcon } from "@/components/layout/icons";
 import { productCatalog as defaultItems } from "@/data/home";
 import type { CatalogProduct } from "@/data/home";
@@ -49,7 +48,6 @@ export function ProductCatalog({ items = defaultItems }: ProductCatalogProps) {
                   href={item.href}
                   className="group relative flex h-full flex-col rounded-2xl border border-arctic-white/10 bg-white/[0.03] p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-action-blue/40 hover:bg-white/[0.05]"
                 >
-                  <PointerGlow />
                   <span className="relative z-10 inline-flex size-12 items-center justify-center rounded-xl bg-action-blue/15 text-action-blue ring-1 ring-action-blue/20 transition-transform duration-300 group-hover:scale-105">
                     <Icon className="size-6" />
                   </span>

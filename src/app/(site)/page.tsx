@@ -8,7 +8,6 @@ import { WhatWeOffer } from "@/components/sections/WhatWeOffer";
 import { Comparison } from "@/components/sections/Comparison";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { GlobalPresence } from "@/components/sections/GlobalPresence";
-import { MobileApp } from "@/components/sections/MobileApp";
 import { BannerCta } from "@/components/sections/BannerCta";
 import { PolicyCountryModal } from "@/components/policies/PolicyCountryModal";
 import { policyCountries } from "@/data/policy-countries";
@@ -35,7 +34,6 @@ export default function Home() {
       <WhatWeOffer />
       <Comparison />
       <Testimonials />
-      <MobileApp />
       <GlobalPresence />
       <BannerCta />
 

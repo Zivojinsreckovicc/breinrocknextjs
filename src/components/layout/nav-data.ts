@@ -22,7 +22,7 @@ export const productColumns: ProductSection[][] = [
         {
           title: "Multicurrency Accounts",
           description:
-            "For personal and corporate accounts. Domiciled in Malta. Accounts in EUR, GBP, USD and CAD. Send and receive in 40+ currencies.",
+            "For personal and corporate accounts. Accounts in EUR, GBP, USD and CAD. Send and receive in 40+ currencies.",
           href: "/accounts",
           icon: `${ICONS}/icons8-bank-account-24.png`,
         },
@@ -35,7 +35,7 @@ export const productColumns: ProductSection[][] = [
         {
           title: "Foreign Exchange",
           description:
-            "Real-time FX access (39) EUR, GBP, CAD and AED for/to/all conversions.",
+            "Across major currencies in your account.",
           href: "/products/foreign-exchange",
           icon: `${ICONS}/icons8-exchange-24.png`,
         },
@@ -50,7 +50,7 @@ export const productColumns: ProductSection[][] = [
         {
           title: "Breinrock Payment Network",
           description:
-            "Send across UAE, UK, EU, US and Canada. SEPA, ACH, Fedwire, Interac, SWIFT.",
+            "Access local payment rails within the UK, EU, US, Canada, and UAE.",
           href: "/products/payment-network",
           icon: `${ICONS}/icons8-connection-24.png`,
         },

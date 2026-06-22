@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRightIcon } from "./icons";
 import { NewsletterForm } from "@/components/ui/NewsletterForm";
 import { getMailchimpConfig } from "@/lib/server/mailchimp";
 import {
@@ -69,6 +70,10 @@ export function Footer() {
                   </span>
                 ))}
               </address>
+              <span className="mt-4 inline-flex items-center gap-1.5 self-start text-sm font-semibold text-action-blue underline decoration-action-blue/40 underline-offset-4 transition-colors group-hover:decoration-action-blue">
+                View {office.flagAlt} policies
+                <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
             </Link>
           ))}
         </div>

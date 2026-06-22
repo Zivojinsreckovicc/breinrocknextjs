@@ -63,6 +63,58 @@ const components: PortableTextComponents = {
     },
   },
   types: {
+    policyTable: ({ value }) => {
+      const table = value as {
+        caption?: string;
+        hasHeaderRow?: boolean;
+        rows?: { _key: string; cells?: string[] }[];
+      };
+      const rows = table.rows ?? [];
+      if (rows.length === 0) return null;
+
+      const headerRow = table.hasHeaderRow ? rows[0] : undefined;
+      const bodyRows = table.hasHeaderRow ? rows.slice(1) : rows;
+
+      return (
+        <figure className="mt-8 overflow-x-auto">
+          <table className="w-full border-collapse text-left text-sm">
+            {headerRow && (
+              <thead>
+                <tr>
+                  {(headerRow.cells ?? []).map((cell, i) => (
+                    <th
+                      key={i}
+                      className="border border-arctic-white/15 bg-white/[0.04] px-4 py-3 font-semibold text-arctic-white"
+                    >
+                      {cell}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {bodyRows.map((row) => (
+                <tr key={row._key}>
+                  {(row.cells ?? []).map((cell, i) => (
+                    <td
+                      key={i}
+                      className="border border-arctic-white/10 px-4 py-3 align-top text-steel-neutral/80"
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {table.caption && (
+            <figcaption className="mt-2 text-sm text-steel-neutral/50">
+              {table.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    },
     image: ({ value }) => {
       const source = value as SanityImageSource & { alt?: string; caption?: string };
       return (
