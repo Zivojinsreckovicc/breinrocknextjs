@@ -1,6 +1,7 @@
 import { buildMetadata } from "@/lib/seo";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/sections/PageHero";
 import { CoreValues } from "@/components/sections/CoreValues";
 import { Mission } from "@/components/sections/Mission";
@@ -25,7 +26,7 @@ export default function AboutPage() {
     <main className="bg-midnight-frame">
       <GoogleAnalytics />
       {/* Header */}
-      <PageHero>
+      <PageHero className="pb-6! lg:pb-8!">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
         <h1 className="mt-8 max-w-3xl text-4xl font-bold tracking-tight text-arctic-white sm:text-5xl lg:text-6xl">
           Banking built around people
@@ -35,6 +36,11 @@ export default function AboutPage() {
           payment solutions for individuals and businesses — powered by local
           rails and real human support across six global offices.
         </p>
+        <div className="mt-8 flex justify-center">
+          <Button href="/contact" size="lg">
+            Contact Us
+          </Button>
+        </div>
       </PageHero>
 
       <CoreValues />

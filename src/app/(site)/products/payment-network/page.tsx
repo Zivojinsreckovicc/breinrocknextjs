@@ -118,10 +118,11 @@ export default function PaymentNetworkPage() {
         eyebrow="Advantage"
         title="Why Use Local Rails"
         items={advantageItems}
+        className="py-14! lg:py-20!"
       />
 
       {/* FAQ */}
-      <Faq items={paymentFaqs} />
+      <Faq items={paymentFaqs} className="pb-14! lg:pb-20!" />
 
       {/* Locations + globe */}
       <GlobalPresence />

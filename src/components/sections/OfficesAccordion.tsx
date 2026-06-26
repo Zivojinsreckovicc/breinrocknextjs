@@ -16,7 +16,7 @@ type OfficesAccordionProps = {
  * entity, regulator/license, and registered address.
  */
 export function OfficesAccordion({ offices = defaultOffices }: OfficesAccordionProps) {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <ul className="flex flex-col gap-3">

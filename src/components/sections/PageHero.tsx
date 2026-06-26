@@ -7,6 +7,8 @@ type PageHeroProps = {
   aside?: ReactNode;
   /** Full viewport height with vertically centred content (landing pages). */
   fullHeight?: boolean;
+  /** Extra classes for the section (e.g. override vertical padding). */
+  className?: string;
 };
 
 /**
@@ -17,7 +19,7 @@ type PageHeroProps = {
  *
  * Pass `aside` for a two-column layout (landing pages): main copy left, aside right.
  */
-export function PageHero({ children, aside, fullHeight = false }: PageHeroProps) {
+export function PageHero({ children, aside, fullHeight = false, className }: PageHeroProps) {
   const split = Boolean(aside);
 
   return (
@@ -26,7 +28,8 @@ export function PageHero({ children, aside, fullHeight = false }: PageHeroProps)
         "relative isolate overflow-hidden bg-midnight-frame",
         fullHeight
           ? "flex min-h-[100svh] items-center pt-28 pb-16 lg:pt-32"
-          : "pt-32 pb-16 lg:pt-36"
+          : "pt-32 pb-16 lg:pt-36",
+        className
       )}
     >
       {/* Animated liquid brand gradient — matches the home hero */}

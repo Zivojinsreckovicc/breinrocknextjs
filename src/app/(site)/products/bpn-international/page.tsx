@@ -5,7 +5,6 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FeatureGrid } from "@/components/sections/FeatureGrid";
 import type { FeatureGridItem } from "@/components/sections/FeatureGrid";
-import { CurrencyCoverage } from "@/components/sections/CurrencyCoverage";
 import { CurrencySearch } from "@/components/sections/CurrencySearch";
 import { BannerCta } from "@/components/sections/BannerCta";
 import { ArrowRightIcon } from "@/components/layout/icons";
@@ -18,7 +17,7 @@ import {
   SendIcon,
 } from "@/components/sections/icons";
 import { SIGN_UP_URL } from "@/constants/links";
-import { bpnAdvantages, supportedCurrencies } from "@/data/bpn";
+import { bpnAdvantages } from "@/data/bpn";
 
 export const metadata = buildMetadata({
   title: "BPN International - Breinrock | Local Payouts in 60+ Currencies",
@@ -92,15 +91,6 @@ export default function BpnInternationalPage() {
         eyebrow="Advantages"
         title="Why Use BPN International"
         items={advantageItems}
-      />
-
-      {/* Supported currencies */}
-      <CurrencyCoverage
-        eyebrow="Coverage"
-        title="Supported Currencies"
-        subtitle="Local payouts in the recipient's currency across these markets, with more added regularly."
-        currencies={supportedCurrencies}
-        tone="frame"
       />
 
       <BannerCta />

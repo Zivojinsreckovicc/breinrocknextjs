@@ -77,7 +77,7 @@ export function ProductsMegaMenu({ onNavigate }: { onNavigate: () => void }) {
         style={staggerStyle(staggerIndex++)}
       >
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-4 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-          <p className="text-xs uppercase tracking-wide text-steel-neutral/60">
+          <p className="text-xs uppercase tracking-wide text-arctic-white">
             Every client gets a dedicated relationship manager
           </p>
           <Link

@@ -26,7 +26,7 @@ export const footerOffices: FooterOffice[] = offices.map((office) => ({
   license: office.license,
   addressLines: office.addressLines,
   flag: office.flag,
-  flagAlt: office.country,
+  flagAlt: office.country === "United Arab Emirates" ? "UAE" : office.country,
   countrySlug: countrySlugByName[office.country] ?? office.country.toLowerCase(),
   hq: office.hq,
 }));

@@ -12,6 +12,8 @@ type FaqProps = {
   items: FaqItem[];
   /** Index of the panel open on first render; `null` = all closed. */
   defaultOpenIndex?: number | null;
+  /** Extra classes for the section (e.g. override vertical padding). */
+  className?: string;
 };
 
 /**
@@ -24,11 +26,12 @@ export function Faq({
   title = "Frequently Asked Questions",
   items,
   defaultOpenIndex = 0,
+  className,
 }: FaqProps) {
   const [open, setOpen] = useState<number | null>(defaultOpenIndex);
 
   return (
-    <section className="bg-midnight-frame py-24 lg:py-32">
+    <section className={cn("bg-midnight-frame py-24 lg:py-32", className)}>
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
         <SectionHeading eyebrow={eyebrow} title={title} />
 

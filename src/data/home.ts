@@ -11,9 +11,9 @@ export type Stat = {
 
 export const stats: Stat[] = [
   { value: 40, suffix: "+", label: "Currencies" },
-  { value: 110, suffix: "+", label: "Payment Countries" },
+  { value: 160, suffix: "+", label: "Payment Countries" },
   { value: 100, suffix: "%", label: "Client-Centric Support" },
-  { value: 52, label: "Local Payment Routes" },
+  { value: 60, suffix: "+", label: "Local Payment Routes" },
 ];
 
 export type TrustIndicator = {
@@ -73,6 +73,7 @@ export const paymentNetworks = [
   "Interac",
   "Mastercard",
   "Visa",
+  "Aani",
 ];
 
 export type ProductFeature = {
@@ -99,7 +100,7 @@ export const products: Product[] = [
   {
     title: "Local & Cross Border Payments",
     description:
-      "Facilitate preferred currency transactions worldwide using SWIFT, SEPA, CHAPS, ACH, Fedwire, EFT, and Interac.",
+      "Facilitate preferred currency transactions worldwide using SWIFT, SEPA, CHAPS, ACH, Fedwire, Aani, EFT, and Interac.",
     icon: "/imgs/icons/localcrossborder.webp",
     href: "/products/payment-network",
     visual: "networks",
@@ -107,7 +108,7 @@ export const products: Product[] = [
   {
     title: "Online Foreign Exchange",
     description:
-      "Manage FX conversions 24/7 via our eBanking platform and stay ahead of market changes with competitive rates.",
+      "Manage FX conversions 24/7 via our eBanking platform and stay ahead of market changes.",
     icon: "/imgs/icons/onlineforeign.webp",
     href: "/products/foreign-exchange",
     visual: "fx",

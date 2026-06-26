@@ -35,7 +35,7 @@ export const productColumns: ProductSection[][] = [
         {
           title: "Foreign Exchange",
           description:
-            "Across major currencies in your account.",
+            "Access and exchange between major currencies in your account.",
           href: "/products/foreign-exchange",
           icon: `${ICONS}/icons8-exchange-24.png`,
         },

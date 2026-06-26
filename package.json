@@ -12,7 +12,6 @@
     "@portabletext/react": "^6.2.0",
     "@sanity/image-url": "^2.1.1",
     "cobe": "^2.0.1",
-    "country-flag-icons": "^1.6.17",
     "next": "16.2.9",
     "next-sanity": "^13.1.0",
     "react": "19.2.7",

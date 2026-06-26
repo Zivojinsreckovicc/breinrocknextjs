@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArrowRightIcon } from "@/components/layout/icons";
-import { policyCountries } from "@/data/policy-countries";
+import { visiblePolicyCountries } from "@/data/policy-countries";
 
 export const metadata: Metadata = {
   title: "Legal & Policies — Breinrock",
@@ -30,7 +30,7 @@ export default function PoliciesHubPage() {
           </p>
 
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {policyCountries.map((country, index) => (
+            {visiblePolicyCountries.map((country, index) => (
               <Reveal key={country.slug} delay={(index % 3) * 80} className="h-full">
                 <Link
                   href={`/policies/${country.slug}`}

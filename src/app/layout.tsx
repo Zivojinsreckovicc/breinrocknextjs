@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { montserrat } from "@/fonts";
 import { Footer } from "@/components/layout/Footer";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { GoogleAds } from "@/components/analytics/GoogleAds";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { SITE_URL } from "@/constants/site";
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en" className={`${montserrat.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <GoogleAds />
+        <ScrollToTop />
         <TextReveal />
         {children}
         <Footer />

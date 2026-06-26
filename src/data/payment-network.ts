@@ -83,7 +83,7 @@ export const paymentFaqs: FaqItem[] = [
   {
     question: "Which currencies are supported?",
     answer:
-      "You can process GBP, EUR, USD, CAD, and AED on local rails, and send or receive in 40+ currencies via SWIFT to over 180 countries.",
+      "You can process GBP, EUR, USD, CAD, and AED on local rails, and send or receive in 40+ currencies via SWIFT to over 160 countries.",
   },
   {
     question: "How does this differ from a SWIFT transfer?",

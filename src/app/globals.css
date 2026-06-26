@@ -480,6 +480,53 @@ body {
   animation: card-float 6s ease-in-out infinite;
 }
 
+/* --- Prepaid-cards hero: fan stack spread + hover micro-interaction --------
+   Cards share a pivot near their bottom-right corner, so they open like a hand
+   of playing cards — the fan sweeps up and toward the left (the copy column).
+   On load each card rotates out from the stacked pose to its resting fan angle
+   (`--card-rest`). `backwards` fill holds the stacked state during the stagger
+   delay but does NOT persist after — so the element reverts to its base
+   `transform`, letting the hover transition take over. Hovering the stack
+   opens the fan a touch wider (`--card-hover`). */
+/* Whole stack fades in together (no per-card stagger). */
+@keyframes card-stack-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cards-stack {
+  animation: card-stack-fade 0.6s ease-out both;
+}
+
+/* Each card holds stacked, then rotates out to its fan angle (staggered). */
+@keyframes card-spread {
+  0% {
+    transform: rotate(0deg) scale(0.94);
+  }
+  40% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: var(--card-rest);
+  }
+}
+
+.card-spread {
+  transform: var(--card-rest);
+  transform-origin: 92% 50%;
+  animation: card-spread 1.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: var(--card-spread-delay, 0ms);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cards-stack:hover .card-spread {
+  transform: var(--card-hover, var(--card-rest));
+}
+
 /* --- Hero load entrance — above-the-fold text rises in on first paint -----
    The scroll-based <TextReveal> deliberately skips above-the-fold text (to
    protect LCP / avoid flash), so heroes use this CSS-only entrance instead.
@@ -544,5 +591,16 @@ body {
   .text-shimmer,
   .btn-shine::after {
     animation: none;
+  }
+  .cards-stack {
+    animation: none;
+    opacity: 1;
+  }
+  .card-spread {
+    animation: none;
+    transition: none;
+  }
+  .cards-stack:hover .card-spread {
+    transform: var(--card-rest);
   }
 }

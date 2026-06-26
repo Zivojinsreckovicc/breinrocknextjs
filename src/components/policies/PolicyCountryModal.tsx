@@ -42,6 +42,16 @@ export function PolicyCountryModal({ countries }: { countries: PolicyCountry[] }
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }, [router, pathname, searchParams]);
 
+  // Switch the policy set to another language variant (keeps the modal open).
+  const switchLanguage = useCallback(
+    (slug: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("country", slug);
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    },
+    [router, pathname, searchParams]
+  );
+
   useEffect(() => {
     if (!activeCountry) return;
     if (policyCache[activeCountry.slug]) return;
@@ -159,6 +169,33 @@ export function PolicyCountryModal({ countries }: { countries: PolicyCountry[] }
             <CloseIcon className="size-5" />
           </button>
         </div>
+
+        {activeCountry.languageOptions && (
+          <div
+            role="group"
+            aria-label="Policy language"
+            className="flex gap-1.5 border-b border-arctic-white/10 px-5 py-3"
+          >
+            {activeCountry.languageOptions.map((language) => {
+              const isActive = language.slug === activeCountry.slug;
+              return (
+                <button
+                  key={language.slug}
+                  type="button"
+                  onClick={() => !isActive && switchLanguage(language.slug)}
+                  aria-pressed={isActive}
+                  className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-blue ${
+                    isActive
+                      ? "bg-action-blue text-arctic-white"
+                      : "text-steel-neutral/70 hover:bg-white/10 hover:text-arctic-white"
+                  }`}
+                >
+                  {language.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         <div className="max-h-[60vh] overflow-y-auto p-3">
           {isLoading ? (

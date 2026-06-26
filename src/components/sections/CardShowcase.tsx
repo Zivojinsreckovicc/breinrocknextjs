@@ -91,7 +91,7 @@ export function CardShowcase({ tiers = defaultTiers }: CardShowcaseProps) {
   return (
     <section
       id="choose-your-card"
-      className="scroll-mt-20 bg-midnight-frame pt-24 lg:pt-32"
+      className="scroll-mt-20 bg-midnight-frame pt-16 lg:pt-20"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
@@ -101,7 +101,7 @@ export function CardShowcase({ tiers = defaultTiers }: CardShowcaseProps) {
         />
 
         {/* Tier tabs */}
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           {tiers.map((tier, index) => (
             <button
               key={tier.id}
@@ -124,11 +124,11 @@ export function CardShowcase({ tiers = defaultTiers }: CardShowcaseProps) {
       <div ref={sectionRef} className="mx-auto max-w-7xl px-6 lg:grid lg:grid-cols-2 lg:gap-16 lg:px-8">
         {/* Sticky rotating card — desktop only */}
         <div className="hidden lg:block">
-          <div className="sticky top-0 flex h-screen items-center justify-center [perspective:1600px]">
+          <div className="sticky top-[20vh] flex h-[60vh] items-center justify-center [perspective:1600px]">
             <div
               ref={cardRef}
               style={{ transform: "rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg))" }}
-              className="relative aspect-[1261/854] w-full max-w-md [transform-style:preserve-3d] will-change-transform"
+              className="relative aspect-[1261/854] w-full max-w-sm [transform-style:preserve-3d] will-change-transform"
             >
               {tiers.map((tier, index) => (
                 <Image
@@ -156,7 +156,7 @@ export function CardShowcase({ tiers = defaultTiers }: CardShowcaseProps) {
               ref={(el) => {
                 panelRefs.current[index] = el;
               }}
-              className="flex min-h-[70vh] flex-col justify-center py-12 lg:min-h-screen lg:py-0"
+              className="flex min-h-[40vh] flex-col justify-center py-6 lg:min-h-[60vh] lg:py-0"
             >
               {/* Inline card — mobile only */}
               <div className="mb-8 lg:hidden">

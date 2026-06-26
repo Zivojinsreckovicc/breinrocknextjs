@@ -3,8 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RichText } from "@/components/RichText";
 import { ArrowRightIcon } from "@/components/layout/icons";
+import { PolicyNav } from "@/components/policies/PolicyNav";
 import { formatDate } from "@/lib/format";
-import { getPolicy, getPolicyParams } from "@/sanity/fetch";
+import { getPolicy, getPoliciesByCountry, getPolicyParams } from "@/sanity/fetch";
 import { getCountry } from "@/data/policy-countries";
 
 type PageProps = {
@@ -43,6 +44,10 @@ export default async function PolicyPage({ params }: PageProps) {
   const policy = await getPolicy(country.slug, slug);
   if (!policy) notFound();
 
+  // Sibling policies for the same country (and language — Czech-language docs
+  // live under their own country slug), powering the jump-to dropdown.
+  const siblingPolicies = await getPoliciesByCountry(country.slug);
+
   return (
     <main className="bg-midnight-frame">
       <article className="pt-36 pb-24 lg:pt-40 lg:pb-32">
@@ -66,6 +71,17 @@ export default async function PolicyPage({ params }: PageProps) {
               Last updated {formatDate(policy.effectiveDate)}
             </p>
           )}
+
+          <div className="mt-8">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-steel-neutral/50">
+              Browse {country.name} policies
+            </p>
+            <PolicyNav
+              countrySlug={country.slug}
+              currentSlug={policy.slug}
+              policies={siblingPolicies}
+            />
+          </div>
 
           <div className="mt-10 border-t border-arctic-white/10 pt-8">
             {policy.body && policy.body.length > 0 && <RichText value={policy.body} />}

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { cn } from "@/lib/cn";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArrowRightIcon } from "@/components/layout/icons";
 import { SectionHeading } from "./SectionHeading";
@@ -23,6 +24,8 @@ type FeatureGridProps = {
   tone?: "frame" | "raised";
   /** Max columns at desktop. 2 renders a centered, narrower grid. */
   columns?: 2 | 3;
+  /** Extra classes for the section (e.g. override vertical padding). */
+  className?: string;
 };
 
 /**
@@ -36,6 +39,7 @@ export function FeatureGrid({
   items,
   tone = "frame",
   columns = 3,
+  className,
 }: FeatureGridProps) {
   const gridClass =
     columns === 2
@@ -43,11 +47,12 @@ export function FeatureGrid({
       : "mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3";
   return (
     <section
-      className={
+      className={cn(
         tone === "raised"
           ? "bg-midnight-raised py-24 lg:py-32"
-          : "bg-midnight-frame py-24 lg:py-32"
-      }
+          : "bg-midnight-frame py-24 lg:py-32",
+        className
+      )}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal>

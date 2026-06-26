@@ -47,13 +47,6 @@ export const bpnAdvantages: BpnAdvantage[] = [
   },
 ];
 
-export type SupportedCurrency = {
-  code: string;
-  country: string;
-  /** ISO 3166-1 alpha-2 code used to render the country flag. */
-  countryCode: string;
-};
-
 /**
  * Currencies/regions with local-rail payout support, used by the BPN
  * International search. `keywords` holds search aliases (country names are
@@ -134,26 +127,4 @@ export const payoutCurrencies: PayoutCurrency[] = [
     ],
     keywords: ["west africa", "cfa", "cfa franc", "ivory coast"],
   },
-];
-
-export const supportedCurrencies: SupportedCurrency[] = [
-  { code: "AUD", country: "Australia", countryCode: "AU" },
-  { code: "BGN", country: "Bulgaria", countryCode: "BG" },
-  { code: "CAD", country: "Canada", countryCode: "CA" },
-  { code: "CLP", country: "Chile", countryCode: "CL" },
-  { code: "EUR", country: "European Union", countryCode: "EU" },
-  { code: "GBP", country: "United Kingdom", countryCode: "GB" },
-  { code: "HKD", country: "Hong Kong", countryCode: "HK" },
-  { code: "HUF", country: "Hungary", countryCode: "HU" },
-  { code: "ILS", country: "Israel", countryCode: "IL" },
-  { code: "KES", country: "Kenya", countryCode: "KE" },
-  { code: "MAD", country: "Morocco", countryCode: "MA" },
-  { code: "NOK", country: "Norway", countryCode: "NO" },
-  { code: "NZD", country: "New Zealand", countryCode: "NZ" },
-  { code: "PLN", country: "Poland", countryCode: "PL" },
-  { code: "SAR", country: "Saudi Arabia", countryCode: "SA" },
-  { code: "SEK", country: "Sweden", countryCode: "SE" },
-  { code: "SGD", country: "Singapore", countryCode: "SG" },
-  { code: "TND", country: "Tunisia", countryCode: "TN" },
-  { code: "USD", country: "United States", countryCode: "US" },
 ];

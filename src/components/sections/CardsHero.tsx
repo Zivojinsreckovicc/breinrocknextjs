@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
@@ -15,7 +16,7 @@ export function CardsHero() {
   const [standard, elite, elitePlus] = cardTiers;
 
   return (
-    <section className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-midnight-frame pt-28 pb-16 lg:pt-32">
+    <section className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-midnight-frame pt-28 pb-4 lg:pt-32">
       {/* Ambient depth */}
       <div
         className="animate-blob absolute -left-32 top-1/4 -z-10 size-[30rem] rounded-full bg-action-blue/20 blur-[130px]"
@@ -57,14 +58,21 @@ export function CardsHero() {
         {/* Fanned card stack */}
         <div className="flex justify-center lg:justify-end">
           <Tilt max={10} className="animate-card-float w-full max-w-md [perspective:1400px]">
-            <div className="relative aspect-[1261/854] w-full [transform-style:preserve-3d]">
+            <div className="cards-stack relative aspect-[1261/854] w-full [transform-style:preserve-3d]">
               <Image
                 src={elite.image}
                 alt={elite.alt}
                 fill
                 priority
                 sizes="(max-width: 1024px) 90vw, 28rem"
-                className="absolute inset-0 -rotate-12 scale-90 object-contain drop-shadow-2xl"
+                className="card-spread absolute inset-0 object-contain drop-shadow-2xl"
+                style={
+                  {
+                    "--card-rest": "rotate(-20deg)",
+                    "--card-hover": "rotate(-27deg)",
+                    "--card-spread-delay": "0ms",
+                  } as CSSProperties
+                }
               />
               <Image
                 src={elitePlus.image}
@@ -72,7 +80,14 @@ export function CardsHero() {
                 fill
                 priority
                 sizes="(max-width: 1024px) 90vw, 28rem"
-                className="absolute inset-0 rotate-6 scale-95 object-contain drop-shadow-2xl"
+                className="card-spread absolute inset-0 object-contain drop-shadow-2xl"
+                style={
+                  {
+                    "--card-rest": "rotate(-6deg)",
+                    "--card-hover": "rotate(-8deg)",
+                    "--card-spread-delay": "90ms",
+                  } as CSSProperties
+                }
               />
               <Image
                 src={standard.image}
@@ -80,7 +95,14 @@ export function CardsHero() {
                 fill
                 priority
                 sizes="(max-width: 1024px) 90vw, 28rem"
-                className="absolute inset-0 -rotate-1 object-contain drop-shadow-2xl"
+                className="card-spread absolute inset-0 object-contain drop-shadow-2xl"
+                style={
+                  {
+                    "--card-rest": "rotate(8deg)",
+                    "--card-hover": "rotate(14deg)",
+                    "--card-spread-delay": "180ms",
+                  } as CSSProperties
+                }
               />
             </div>
           </Tilt>

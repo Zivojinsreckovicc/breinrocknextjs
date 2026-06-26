@@ -82,26 +82,12 @@ export function TeamCarousel({
   return (
     <section className="bg-midnight-frame py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <SectionHeading
-            eyebrow={eyebrow}
-            title={title}
-            subtitle={subtitle}
-            align="left"
-          />
-          <div className="flex shrink-0 gap-3">
-            <CarouselButton
-              direction="prev"
-              disabled={atStart}
-              onClick={() => scrollByCards(-1)}
-            />
-            <CarouselButton
-              direction="next"
-              disabled={atEnd}
-              onClick={() => scrollByCards(1)}
-            />
-          </div>
-        </div>
+        <SectionHeading
+          eyebrow={eyebrow}
+          title={title}
+          subtitle={subtitle}
+          align="left"
+        />
 
         <Reveal className="mt-12">
           <div
@@ -146,6 +132,19 @@ export function TeamCarousel({
             ))}
           </div>
         </Reveal>
+
+        <div className="mt-10 flex justify-center gap-3">
+          <CarouselButton
+            direction="prev"
+            disabled={atStart}
+            onClick={() => scrollByCards(-1)}
+          />
+          <CarouselButton
+            direction="next"
+            disabled={atEnd}
+            onClick={() => scrollByCards(1)}
+          />
+        </div>
       </div>
     </section>
   );
