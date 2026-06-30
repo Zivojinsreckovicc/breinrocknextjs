@@ -1,4 +1,5 @@
 import { pushDemoConversion } from "@/lib/landing-tracking";
+import { submitToWeb3Forms } from "@/lib/web3forms";
 
 export type DemoFormValues = {
   name: string;
@@ -29,7 +30,11 @@ async function getRecaptchaToken(): Promise<string | undefined> {
   }
 }
 
-/** Demo popup submit — posts to the server Route Handler (Make.com + Web3Forms). */
+/**
+ * Demo popup submit. Email delivery goes to Web3Forms directly from the browser
+ * (the free plan only accepts client-side submissions). The referral parameter
+ * is included so lead source is preserved in the email.
+ */
 export async function submitDemoForm({
   pageSlug,
   values,
@@ -38,32 +43,18 @@ export async function submitDemoForm({
 }: SubmitDemoFormOptions): Promise<void> {
   const token = recaptchaToken ?? (await getRecaptchaToken());
 
-  const response = await fetch("/api/forms/demo", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      pageSlug,
-      name: values.name,
-      email: values.email,
-      industry: values.industry,
-      company_size: values.company_size,
-      phone: values.phone,
-      refParam,
-      recaptchaToken: token,
-    }),
+  await submitToWeb3Forms({
+    subject: "New Demo Request",
+    from_name: "Breinrock Website",
+    name: values.name,
+    email: values.email,
+    industry: values.industry,
+    company_size: values.company_size,
+    phone: values.phone,
+    page: pageSlug,
+    ref: refParam?.trim() || undefined,
+    "g-recaptcha-response": token,
   });
-
-  const result = (await response.json().catch(() => ({}))) as {
-    success?: boolean;
-    message?: string;
-  };
-
-  if (!response.ok || !result.success) {
-    throw new Error(result.message || "Submission failed");
-  }
 
   pushDemoConversion({
     name: values.name,

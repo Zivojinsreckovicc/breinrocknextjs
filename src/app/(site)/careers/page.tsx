@@ -5,6 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { JobOpenings } from "@/components/sections/JobOpenings";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { getJobs } from "@/sanity/fetch";
 
 export const metadata = buildMetadata({
   title: "Careers - Breinrock | Join Our Global Fintech Team",
@@ -19,7 +20,9 @@ export const metadata = buildMetadata({
     "Browse open positions at Breinrock and apply to join our team.",
 });
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const jobs = await getJobs();
+
   return (
     <main className="bg-midnight-frame">
       {/* Header */}
@@ -47,7 +50,7 @@ export default function CareersPage() {
             />
           </Reveal>
           <div className="mt-12 lg:mt-16">
-            <JobOpenings />
+            <JobOpenings jobs={jobs} />
           </div>
         </div>
       </section>

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Script from "next/script";
 import { cn } from "@/lib/cn";
 import { ContactForm } from "./ContactForm";
+import { submitToWeb3Forms } from "@/lib/web3forms";
 import { RECAPTCHA_SITE_KEY, THANK_YOU_PATH } from "@/constants/forms";
 
 type ContactFormPanelProps = {
@@ -25,8 +26,8 @@ async function getRecaptchaToken(): Promise<string | undefined> {
 }
 
 /**
- * Standalone contact form panel — submits via `/api/forms/contact` so Web3Forms
- * credentials never ship in the browser bundle.
+ * Standalone contact form panel — submits directly to Web3Forms from the
+ * browser (the free plan only accepts client-side submissions).
  */
 export function ContactFormPanel({ className }: ContactFormPanelProps) {
   const router = useRouter();
@@ -34,22 +35,19 @@ export function ContactFormPanel({ className }: ContactFormPanelProps) {
   const handleSubmit = async (data: Record<string, string>) => {
     const token = await getRecaptchaToken();
 
-    const response = await fetch("/api/forms/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        ...data,
-        recaptchaToken: token,
-      }),
+    await submitToWeb3Forms({
+      subject: `New contact enquiry${data.interest ? ` — ${data.interest}` : ""}`,
+      from_name: "Breinrock Website",
+      name: `${data.firstName ?? ""} ${data.lastName ?? ""}`.trim(),
+      email: data.email?.trim(),
+      phone: data.phone?.trim(),
+      company: data.companyName?.trim(),
+      website: data.companyWebsite?.trim(),
+      interest: data.interest?.trim(),
+      message: data.message?.trim(),
+      marketing_opt_in: data.marketing === "on" ? "Yes" : "No",
+      "g-recaptcha-response": token,
     });
-
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok || !result.success) {
-      throw new Error(result.message || "Submission failed");
-    }
 
     router.push(THANK_YOU_PATH);
     await new Promise<never>(() => {});

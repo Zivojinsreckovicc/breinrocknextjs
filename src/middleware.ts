@@ -7,7 +7,7 @@ const CONTENT_SECURITY_POLICY = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://cdn.sanity.io https://curator-assets.b-cdn.net https://cdn.curator.io",
   "font-src 'self'",
-  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com",
+  "connect-src 'self' https://api.web3forms.com https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com",
   "frame-src https://www.google.com",
   "base-uri 'self'",
   "form-action 'self' https://breinrock.us14.list-manage.com",

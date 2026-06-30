@@ -25,7 +25,7 @@ export const metadata = buildMetadata({
   description:
     "Exchange currencies with Breinrock. Send and receive 40+ SWIFT and 60+ local payout currencies worldwide.",
   keywords:
-    "foreign exchange, currency exchange, FX services, multi-currency accounts, SWIFT payments, international currency conversion, USD EUR GBP CAD AED exchange, global FX trading, corporate foreign exchange, international payments",
+    "foreign exchange, currency exchange, FX services, multi-currency accounts, SWIFT payments, international currency conversion, USD EUR GBP CAD exchange, global FX trading, corporate foreign exchange, international payments",
   path: "/products/foreign-exchange",
   ogTitle: "Foreign Exchange - Breinrock | Multi-Currency FX Services",
   ogDescription:
@@ -81,7 +81,7 @@ export default function ForeignExchangePage() {
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-steel-neutral/80">
               Exchange currencies directly within your Breinrock account. Convert
-              between USD, EUR, GBP, CAD, and AED instantly, with access to 40+
+              between USD, EUR, GBP, and CAD instantly, with access to 40+
               SWIFT currencies and 60+ local payout currencies.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">

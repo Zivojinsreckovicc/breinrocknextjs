@@ -170,6 +170,17 @@ export function PolicyCountryModal({ countries }: { countries: PolicyCountry[] }
           </button>
         </div>
 
+        {activeCountry.disclaimer && (
+          <div className="border-b border-arctic-white/10 px-5 py-4">
+            <p className="text-sm font-semibold text-arctic-white">
+              You have selected: {activeCountry.name}
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-steel-neutral/70">
+              {activeCountry.disclaimer}
+            </p>
+          </div>
+        )}
+
         {activeCountry.languageOptions && (
           <div
             role="group"

@@ -179,7 +179,7 @@ export const productCatalog: CatalogProduct[] = [
   {
     title: "Foreign Exchange",
     description:
-      "Competitive FX rates with 24/7 online conversion between 60+ currency pairs.",
+      "Competitive FX rates with 24/7 online conversion between major currencies.",
     href: "/products/foreign-exchange",
     icon: "fx",
   },
@@ -357,7 +357,7 @@ export const offices: Office[] = [
     entity: "Breinrock Ltd.",
     license: "HE 39088",
     addressLines: [
-      "4 Thekla Lysioti, Harmony House",
+      "4 Thekla Lysiotis, Harmony House",
       "Office 11, 1st Floor",
       "3030 Limassol, Cyprus",
     ],

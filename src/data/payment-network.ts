@@ -37,7 +37,7 @@ export const paymentRails: PaymentRail[] = [
   },
   {
     code: "AED",
-    title: "Local AED Payments",
+    title: "Aani",
     description:
       "Process dirham payments domestically within the UAE banking system.",
   },

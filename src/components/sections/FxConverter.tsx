@@ -5,14 +5,13 @@ import { cn } from "@/lib/cn";
 import { ExchangeIcon } from "./icons";
 
 /** Primary currencies and their indicative units per 1 USD. */
-const CURRENCIES = ["USD", "EUR", "GBP", "CAD", "AED"] as const;
+const CURRENCIES = ["USD", "EUR", "GBP", "CAD"] as const;
 type Currency = (typeof CURRENCIES)[number];
 const BASE_RATES: Record<Currency, number> = {
   USD: 1,
   EUR: 0.92,
   GBP: 0.79,
   CAD: 1.36,
-  AED: 3.67,
 };
 
 const money = new Intl.NumberFormat("en-US", {

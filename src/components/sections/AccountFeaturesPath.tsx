@@ -41,7 +41,9 @@ export function AccountFeaturesPath({
     if (!wrap || !svg || !path) return;
 
     const isDesktop = () => window.matchMedia("(min-width: 1024px)").matches;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
     let total = 0;
 
     const recompute = () => {
@@ -53,16 +55,14 @@ export function AccountFeaturesPath({
       const h = wrap.clientHeight;
       svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
       const wrapRect = wrap.getBoundingClientRect();
-      const pts = cardRefs.current
-        .filter(Boolean)
-        .map((el, i) => {
-          const r = (el as HTMLDivElement).getBoundingClientRect();
-          const left = i % 2 === 0;
-          return {
-            x: (left ? r.right : r.left) - wrapRect.left,
-            y: r.top - wrapRect.top + r.height / 2,
-          };
-        });
+      const pts = cardRefs.current.filter(Boolean).map((el, i) => {
+        const r = (el as HTMLDivElement).getBoundingClientRect();
+        const left = i % 2 === 0;
+        return {
+          x: (left ? r.right : r.left) - wrapRect.left,
+          y: r.top - wrapRect.top + r.height / 2,
+        };
+      });
       if (pts.length < 2) return;
 
       let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
@@ -121,7 +121,10 @@ export function AccountFeaturesPath({
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <SectionHeading eyebrow={eyebrow} title={title} />
 
-        <div ref={wrapRef} className="relative mt-16 flex flex-col gap-12 lg:mt-24 lg:gap-8">
+        <div
+          ref={wrapRef}
+          className="relative mt-16 flex flex-col gap-12 lg:mt-24 lg:gap-8"
+        >
           {/* Scroll-drawn connector (desktop only) */}
           <svg
             ref={svgRef}
@@ -153,17 +156,16 @@ export function AccountFeaturesPath({
                 ref={(el) => {
                   cardRefs.current[index] = el;
                 }}
-                className={cn(
-                  "lg:w-[46%]",
-                  left ? "lg:mr-auto" : "lg:ml-auto"
-                )}
+                className={cn("lg:w-[46%]", left ? "lg:mr-auto" : "lg:ml-auto")}
               >
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-arctic-white/10 bg-white/[0.03] p-7 backdrop-blur-sm transition-colors duration-300 hover:border-action-blue/40 hover:bg-white/[0.05]">
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-arctic-white/10 bg-white/3 p-7 backdrop-blur-sm transition-colors duration-300 hover:border-action-blue/40 hover:bg-white/5">
                   <div className="flex items-center gap-4">
                     <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-action-blue/15 text-action-blue ring-1 ring-action-blue/20">
                       {feature.icon}
                     </span>
-                    <h3 className="text-lg font-bold text-arctic-white">{feature.title}</h3>
+                    <h3 className="text-lg font-bold text-arctic-white">
+                      {feature.title}
+                    </h3>
                   </div>
                   <p className="mt-4 text-sm leading-relaxed text-steel-neutral/70">
                     {feature.description}

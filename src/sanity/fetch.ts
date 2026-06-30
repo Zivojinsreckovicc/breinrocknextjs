@@ -7,15 +7,20 @@ import {
   postsQuery,
   postBySlugQuery,
   postSlugsQuery,
+  jobsQuery,
+  jobBySlugQuery,
+  jobSlugsQuery,
   policiesByCountryQuery,
   policyQuery,
   policyParamsQuery,
   websitePolicyQuery,
 } from "./queries";
 import { fallbackPosts } from "@/data/blog-fallback";
+import { fallbackJobs } from "@/data/careers";
 import { fallbackPolicies } from "@/data/policy-fallback";
 import { fallbackWebsitePolicies } from "@/data/website-policy-fallback";
 import type { BlogPost, BlogPostCard } from "@/types/blog";
+import type { Job, JobCard } from "@/types/job";
 import type { Policy, PolicyListItem, WebsitePolicy } from "@/types/policy";
 
 type ImageWithAlt = SanityImageSource & { alt?: string };
@@ -125,6 +130,104 @@ export async function getPostSlugs(): Promise<string[]> {
     // ignore and fall back
   }
   return fallbackPosts.map((post) => post.slug);
+}
+
+/* ------------------------------------- Jobs ------------------------------ */
+
+type RawJob = {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  employmentType?: string;
+  department?: string;
+  location?: string;
+  applyUrl?: string;
+  applyEmail?: string;
+  publishedAt?: string;
+  featured?: boolean;
+  body?: PortableTextBlock[];
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    ogImage?: SanityImageSource;
+    noIndex?: boolean;
+  };
+};
+
+const DEFAULT_APPLY_EMAIL = "welcome@breinrock.com";
+
+/** Resolve the apply link: an external URL wins, else a pre-filled mailto. */
+function applyHrefFor(raw: RawJob): string {
+  if (raw.applyUrl) return raw.applyUrl;
+  const email = raw.applyEmail || DEFAULT_APPLY_EMAIL;
+  const subject = encodeURIComponent(`Application — ${raw.title}`);
+  return `mailto:${email}?subject=${subject}`;
+}
+
+function normalizeJobCard(raw: RawJob): JobCard {
+  return {
+    _id: raw._id,
+    title: raw.title,
+    slug: raw.slug,
+    excerpt: raw.excerpt ?? "",
+    employmentType: raw.employmentType ?? "Full-time",
+    department: raw.department ?? "",
+    location: raw.location ?? "",
+    applyHref: applyHrefFor(raw),
+    date: raw.publishedAt ?? "",
+    featured: raw.featured,
+  };
+}
+
+function normalizeJob(raw: RawJob): Job {
+  return {
+    ...normalizeJobCard(raw),
+    body: raw.body,
+    seo: raw.seo
+      ? {
+          metaTitle: raw.seo.metaTitle,
+          metaDescription: raw.seo.metaDescription,
+          ogImageUrl: raw.seo.ogImage
+            ? urlForImage(raw.seo.ogImage).width(1200).height(630).fit("crop").url()
+            : undefined,
+          noIndex: raw.seo.noIndex,
+        }
+      : undefined,
+  };
+}
+
+/** Open positions for the careers index. Falls back to static jobs. */
+export async function getJobs(): Promise<JobCard[]> {
+  try {
+    const raw = await client.fetch<RawJob[]>(jobsQuery, {}, FETCH_OPTIONS);
+    if (raw && raw.length > 0) return raw.map(normalizeJobCard);
+  } catch {
+    // Sanity unreachable / not configured — fall through to fallback content.
+  }
+  return fallbackJobs;
+}
+
+/** A single job by slug. Falls back to static jobs. */
+export async function getJob(slug: string): Promise<Job | null> {
+  try {
+    const raw = await client.fetch<RawJob | null>(jobBySlugQuery, { slug }, FETCH_OPTIONS);
+    if (raw) return normalizeJob(raw);
+  } catch {
+    // ignore and fall back
+  }
+  return fallbackJobs.find((job) => job.slug === slug) ?? null;
+}
+
+/** All job slugs for static generation. */
+export async function getJobSlugs(): Promise<string[]> {
+  try {
+    const slugs = await client.fetch<string[]>(jobSlugsQuery, {}, FETCH_OPTIONS);
+    if (slugs && slugs.length > 0) return slugs;
+  } catch {
+    // ignore and fall back
+  }
+  return fallbackJobs.map((job) => job.slug);
 }
 
 /* ----------------------------------- Policies ---------------------------- */

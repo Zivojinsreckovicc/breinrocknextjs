@@ -36,6 +36,45 @@ export const postSlugsQuery = groq`
   *[_type == "post" && defined(slug.current)].slug.current
 `;
 
+/* ------------------------------------- Jobs ------------------------------ */
+
+/** Card projection shared by job list + detail queries. */
+const jobCardFields = groq`
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  employmentType,
+  department,
+  location,
+  applyUrl,
+  applyEmail,
+  publishedAt,
+  featured
+`;
+
+/** Open positions for the careers index, newest first. */
+export const jobsQuery = groq`
+  *[_type == "job" && defined(slug.current)]
+    | order(coalesce(publishedAt, _createdAt) desc) {
+    ${jobCardFields}
+  }
+`;
+
+/** A single job by slug, including body + SEO. */
+export const jobBySlugQuery = groq`
+  *[_type == "job" && slug.current == $slug][0] {
+    ${jobCardFields},
+    body,
+    seo
+  }
+`;
+
+/** All job slugs, for static generation. */
+export const jobSlugsQuery = groq`
+  *[_type == "job" && defined(slug.current)].slug.current
+`;
+
 /* ----------------------------------- Policies ---------------------------- */
 
 /** All policies for one country, for the country index page. */

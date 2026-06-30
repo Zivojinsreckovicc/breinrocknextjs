@@ -26,6 +26,12 @@ export type PolicyCountry = {
   languageOptions?: PolicyLanguageOption[];
   /** Hidden from the /policies hub grid (e.g. alternate-language policy sets). */
   hidden?: boolean;
+  /**
+   * Regulatory disclaimer shown in the policy popup beneath a
+   * "You have selected: <name>" line (e.g. the licensed entity and license
+   * number for the jurisdiction).
+   */
+  disclaimer?: string;
 };
 
 /** Shared EN/CZ toggle for the Czech Republic policy set and its Czech variant. */
@@ -35,7 +41,13 @@ const CZECH_LANGUAGE_OPTIONS: PolicyLanguageOption[] = [
 ];
 
 export const policyCountries: PolicyCountry[] = [
-  { slug: "switzerland", name: "Switzerland", flag: "/imgs/icons/swiss-flag.webp" },
+  {
+    slug: "switzerland",
+    name: "Switzerland",
+    flag: "/imgs/icons/swiss-flag.webp",
+    disclaimer:
+      "Helvetic Digital Finance AG is a company registered in Switzerland with address Bahnhofplatz, 6300 Zug, Switzerland, and is a member of VQF with license number 101286.",
+  },
   { slug: "uae", name: "United Arab Emirates", flag: "/imgs/icons/uae.webp" },
   { slug: "cyprus", name: "Cyprus", flag: "/imgs/icons/cyprus.webp" },
   {

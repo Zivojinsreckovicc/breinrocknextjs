@@ -13,7 +13,7 @@ export const fxCapabilities: FxCapability[] = [
     icon: "exchange",
     title: "Primary Currency Exchange",
     description:
-      "Instantly convert between USD, EUR, GBP, CAD, and AED directly within your Breinrock account.",
+      "Instantly convert between USD, EUR, GBP, and CAD directly within your Breinrock account.",
   },
   {
     icon: "clock",
@@ -61,7 +61,7 @@ export const fxSteps: FxStep[] = [
   {
     title: "Exchange",
     description:
-      "Convert funds between supported currencies — USD, EUR, GBP, CAD, and AED.",
+      "Convert funds between supported currencies — USD, EUR, GBP, and CAD.",
   },
   {
     title: "Send Globally",

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/constants/site";
 import { policyCountries } from "@/data/policy-countries";
 import { landingSlugs } from "@/data/landings";
-import { getPosts, getPolicyParams } from "@/sanity/fetch";
+import { getPosts, getJobs, getPolicyParams } from "@/sanity/fetch";
 
 // Regenerate hourly so newly published CMS content is picked up.
 export const revalidate = 3600;
@@ -55,8 +55,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // CMS-driven routes. The fetchers fall back to static content when Sanity is
   // unconfigured/offline, so the sitemap always builds.
-  const [posts, policies] = await Promise.all([
+  const [posts, jobs, policies] = await Promise.all([
     getPosts(1000),
+    getJobs(),
     getPolicyParams(),
   ]);
 
@@ -67,6 +68,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: Number.isNaN(parsed.getTime()) ? now : parsed,
       changeFrequency: "monthly",
       priority: 0.6,
+    };
+  });
+
+  const jobEntries: MetadataRoute.Sitemap = jobs.map((job) => {
+    const parsed = job.date ? new Date(job.date) : now;
+    return {
+      url: `${SITE_URL}/careers/${job.slug}`,
+      lastModified: Number.isNaN(parsed.getTime()) ? now : parsed,
+      changeFrequency: "monthly",
+      priority: 0.5,
     };
   });
 
@@ -82,6 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...landingEntries,
     ...countryEntries,
     ...postEntries,
+    ...jobEntries,
     ...policyEntries,
   ];
 }
